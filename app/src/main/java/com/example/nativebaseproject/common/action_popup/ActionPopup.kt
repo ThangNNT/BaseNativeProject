@@ -12,8 +12,20 @@ import com.example.nativebaseproject.common.util.getScreenHeight
 import com.example.nativebaseproject.common.util.toPixel
 import com.example.nativebaseproject.databinding.PopupActionBinding
 
+@Suppress("unused")
 object ActionPopup {
-    inline fun <reified T: Any>show(context: Context, anchorView: View, model: T, actions: List<ActionItem<T>>){
+    /**
+     * Usage example:
+        val actions = listOf<ActionItem<Any>>(ActionItem(icon = R.drawable.ic_home_black_24dp, actionText = "Hello", action = {
+        Toast.makeText(requireContext(), "1", Toast.LENGTH_SHORT).show()
+        }),
+        ActionItem(icon = R.drawable.ic_dashboard_black_24dp, actionText = "Haha", action = {
+        Toast.makeText(requireContext(), "2", Toast.LENGTH_SHORT).show()
+        }))
+        ActionPopup.show(requireContext(), it, Any(), actions)
+     */
+    inline fun <reified T: Any>
+            show(context: Context, anchorView: View, model: T, actions: List<ActionItem<T>>){
         val inflater =
             context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val binding = PopupActionBinding.inflate(inflater, null, false)
