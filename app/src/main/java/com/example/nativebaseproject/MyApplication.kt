@@ -12,6 +12,7 @@ class MyApplication: Application(), DefaultLifecycleObserver {
 
     override fun onCreate() {
         super<Application>.onCreate()
+        instance = this
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         initTimber()
     }

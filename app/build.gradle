@@ -125,9 +125,10 @@ dependencies {
 
     //OkHttp
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
-
     // define any required OkHttp artifacts without version
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
 
+    //datastore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 }
