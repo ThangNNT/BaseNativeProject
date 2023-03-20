@@ -38,7 +38,7 @@ object AppDataStore {
         }
     }
 
-    fun <T> DataStore<Preferences>.getValueFlow(
+    private fun <T> DataStore<Preferences>.getValueFlow(
         key: Preferences.Key<T>,
         defaultValue: T,
     ): Flow<T> {
