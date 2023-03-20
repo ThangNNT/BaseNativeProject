@@ -9,6 +9,20 @@ android {
     namespace 'com.example.nativebaseproject'
     compileSdk 33
 
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+    signingConfigs {
+        release {
+            Properties localProps = new Properties()
+            localProps.load(new FileInputStream(file('../local.properties')))
+            storeFile file(localProps["storeFile"] ?: "local")
+            keyAlias localProps["keyAlias"]
+            storePassword localProps["storePassword"]
+            keyPassword localProps["keyPassword"]
+        }
+    }
+
     defaultConfig {
         applicationId "com.example.nativebaseproject"
         minSdk 24
@@ -24,32 +38,38 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField ("String", "BASE_API_URL", "\"your_release_base_url\"")
+            signingConfig signingConfigs.release
         }
 
         debug {
             applicationIdSuffix ".debug"
             debuggable true
+            buildConfigField("String", "BASE_API_URL", "\"your_staging_base_url\"")
+            signingConfig signingConfigs.debug
         }
 
         dev {
             applicationIdSuffix ".dev"
             debuggable true
+            buildConfigField("String", "BASE_API_URL", "\"your_dev_base_url\"")
+            signingConfig signingConfigs.debug
         }
     }
 
-    flavorDimensions "version"
-    productFlavors {
-        free {
-            dimension "version"
-            applicationIdSuffix ".free"
-            versionNameSuffix "-free"
-        }
-        pro {
-            dimension "version"
-            applicationIdSuffix ".pro"
-            versionNameSuffix "-pro"
-        }
-    }
+//    flavorDimensions "version"
+//    productFlavors {
+//        free {
+//            dimension "version"
+//            applicationIdSuffix ".free"
+//            versionNameSuffix "-free"
+//        }
+//        pro {
+//            dimension "version"
+//            applicationIdSuffix ".pro"
+//            versionNameSuffix "-pro"
+//        }
+//    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -60,11 +80,13 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
+        buildConfig true
     }
 }
 
 kapt {
     correctErrorTypes true
+    generateStubs true
 }
 
 dependencies {
@@ -100,5 +122,12 @@ dependencies {
 
     //Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    //OkHttp
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
+
+    // define any required OkHttp artifacts without version
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
 
 }
