@@ -1,13 +1,18 @@
 package com.example.nativebaseproject
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.nativebaseproject.base.activity.BaseActivity
@@ -15,27 +20,54 @@ import com.example.nativebaseproject.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
     private val viewModel: MainViewModel by viewModels()
-    override val inflateLayout: Int
-        get() = R.layout.activity_main
 
+    private lateinit var drawableToggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setupSplashScreen()
+        setSupportActionBar(binding.toolbar)
+        setupDrawer()
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        val appBarConfiguration = AppBarConfiguration(
+//            setOf(
+//                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+//            )
+//        )
+        //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+//        navView.setOnItemSelectedListener {
+//            NavigationUI.onNavDestinationSelected(it, navController)
+//            navController.popBackStack(it.itemId, inclusive = false)
+//            true
+//        }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications -> {
+                    drawableToggle.isDrawerIndicatorEnabled = true
+                    binding.navView.isVisible = true
+                }
+                else -> {
+                    drawableToggle.isDrawerIndicatorEnabled = false
+                    binding.navView.isVisible = false
+                }
+            }
+        }
+    }
+
+    private fun setupDrawer(){
+        drawableToggle = ActionBarDrawerToggle(this, binding.drawerLayout,binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        binding.drawerLayout.addDrawerListener(drawableToggle)
+        drawableToggle.isDrawerIndicatorEnabled = true
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        drawableToggle.syncState()
     }
 
     private fun setupSplashScreen(){
@@ -57,6 +89,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         )
     }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        drawableToggle.syncState()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        drawableToggle.onConfigurationChanged(newConfig)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (drawableToggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun setup() {
 
     }

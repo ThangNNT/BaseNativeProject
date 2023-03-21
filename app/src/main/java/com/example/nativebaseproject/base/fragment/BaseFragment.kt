@@ -8,19 +8,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<VB: ViewBinding>: Fragment() {
+abstract class BaseFragment<VB: ViewBinding>(private val bindingFactory: (LayoutInflater) -> VB): Fragment() {
     private var mBinding: VB? = null
 
     val binding: VB
       get() = mBinding!!
 
-    abstract val inflateLayout: Int
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = DataBindingUtil.inflate(inflater, inflateLayout, container,false)
+        mBinding = bindingFactory.invoke(inflater)
         return mBinding?.root
     }
 
