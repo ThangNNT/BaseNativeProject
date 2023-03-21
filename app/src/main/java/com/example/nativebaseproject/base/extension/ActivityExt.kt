@@ -7,13 +7,13 @@ import androidx.viewbinding.ViewBinding
 import com.example.nativebaseproject.base.activity.BaseActivity
 
 
-fun BaseActivity<ViewBinding>.hideKeyboard(){
+fun BaseActivity<*>.hideKeyboard(){
     val inputMethodManager =
         this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, 0)
 }
 
-fun BaseActivity<ViewBinding>.showKeyboard(editText: EditText){
+fun BaseActivity<*>.showKeyboard(editText: EditText){
     editText.requestFocus()
     val imm =
         this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
