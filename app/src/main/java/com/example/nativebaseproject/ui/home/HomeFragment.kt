@@ -18,7 +18,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         }
         binding.textHome.setSingleClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionOpenTestFragment())
+            findNavController().navigate(HomeFragmentDirections.actionOpenTestDialog())
         }
     }
 }

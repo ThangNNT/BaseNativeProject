@@ -16,7 +16,7 @@
     </style>
 
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">@drawable/bg_round_white</item>
-        <item name="android:background">@drawable/bg_round_white</item>
+        <item name="android:windowBackground">@drawable/bg_round_white_radius_10</item>
+        <item name="android:background">@drawable/bg_round_white_radius_10</item>
     </style>
 </resources>

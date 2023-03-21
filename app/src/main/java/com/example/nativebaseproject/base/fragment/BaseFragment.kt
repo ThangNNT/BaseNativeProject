@@ -42,6 +42,14 @@ abstract class BaseFragment<VB: ViewBinding>(private val bindingFactory: (Layout
         } else null
     }
 
+    protected fun showProgressDialog(){
+        getBaseActivity()?.showProgressDialog()
+    }
+
+    protected fun hideProgressDialog(){
+        getBaseActivity()?.hideProgressDialog()
+    }
+
     abstract fun setup()
 
     override fun onDestroyView() {

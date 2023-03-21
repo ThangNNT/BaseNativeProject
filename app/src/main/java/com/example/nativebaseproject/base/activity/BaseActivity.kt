@@ -7,13 +7,16 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.example.nativebaseproject.base.extension.hideKeyboard
+import com.example.nativebaseproject.base.extension.createProgressDialog
+import com.example.nativebaseproject.common.extension.hideKeyboard
 
 abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (LayoutInflater) -> VB): AppCompatActivity() {
     var shouldHideKeyboardWhenTouchOutside = true
     private lateinit var mBinding: VB
     val binding: VB
         get() = mBinding
+
+    private val progressDialog by lazy { createProgressDialog() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = bindingFactory.invoke(layoutInflater)
@@ -22,6 +25,14 @@ abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (Layout
     }
 
     abstract fun setup()
+
+    fun showProgressDialog(){
+        progressDialog.show()
+    }
+
+    fun hideProgressDialog() {
+        progressDialog.dismiss()
+    }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         if (shouldHideKeyboardWhenTouchOutside){
@@ -37,7 +48,7 @@ abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (Layout
                     if (event.action == MotionEvent.ACTION_UP
                         && (x < w.left || x >= w.right || y < w.top || y > w.bottom)
                     ) {
-                        this.hideKeyboard()
+                        binding.root.hideKeyboard()
                     }
                 }
             }

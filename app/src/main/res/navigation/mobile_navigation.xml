@@ -13,6 +13,8 @@
         tools:layout="@layout/fragment_home">
         <action android:id="@+id/action_open_testFragment"
             app:destination="@id/fragment_test"/>
+        <action android:id="@+id/action_open_test_dialog"
+            app:destination="@id/dialog_test"/>
     </fragment>
 
     <fragment
@@ -33,4 +35,9 @@
         android:label="Test Fragment"
         tools:layout="@layout/fragment_test"/>
 
+    <dialog
+        android:id="@+id/dialog_test"
+        android:name="com.example.nativebaseproject.ui.test.TestDialog"
+        android:label="Test Dialog"
+        tools:layout="@layout/dialog_test"/>
 </navigation>

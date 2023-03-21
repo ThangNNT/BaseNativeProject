@@ -14,26 +14,31 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
-import com.example.nativebaseproject.base.activity.BaseActivity
+import com.example.nativebaseproject.base.activity.BaseMVVMActivity
 import com.example.nativebaseproject.common.extension.setSingleClickListener
 import com.example.nativebaseproject.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
-    private val viewModel: MainViewModel by viewModels()
+class MainActivity : BaseMVVMActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
+    override val viewModel: MainViewModel by viewModels()
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
     private lateinit var drawableToggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+    }
+
+    override fun setup() {
         setupSplashScreen()
         setSupportActionBar(binding.toolbar)
         setupDrawer()
         setupNavigation()
     }
+    override fun setupObserver() {
 
+    }
     private fun setupDrawer(){
         drawableToggle = ActionBarDrawerToggle(this, binding.drawerLayout,binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         binding.drawerLayout.addDrawerListener(drawableToggle)
@@ -124,9 +129,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             return true
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun setup() {
     }
 
     @Deprecated("Deprecated in Java")
