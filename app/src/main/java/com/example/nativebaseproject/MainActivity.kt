@@ -15,7 +15,9 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.example.nativebaseproject.base.activity.BaseMVVMActivity
+import com.example.nativebaseproject.base.extension.shareSimpleText
 import com.example.nativebaseproject.common.extension.setSingleClickListener
+import com.example.nativebaseproject.common.inapp_review.launchInAppReview
 import com.example.nativebaseproject.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,6 +55,13 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding>(ActivityMainBinding::
         binding.layoutDrawer.layoutOption1.setSingleClickListener {
             navController.navigate(R.id.action_drawer_to_testFragment)
             binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+        binding.layoutDrawer.layoutReview.setOnClickListener {
+            launchInAppReview(this, {}, {})
+        }
+        binding.layoutDrawer.layoutShareApp.setOnClickListener {
+            val appShareContent =  "${getString(R.string.share_app_subject)} ${AppConfig.APP_STORE_LINK}"
+            shareSimpleText(appShareContent, getString(R.string.app_name))
         }
     }
 

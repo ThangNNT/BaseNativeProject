@@ -18,9 +18,10 @@ fun Context.copyText(text: String){
     clipboard?.setPrimaryClip(clip)
 }
 
-fun Context.shareSimpleText(text: String){
+fun Context.shareSimpleText(text: String, subject: String = ""){
     val sendIntent: Intent = Intent().apply {
         action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_SUBJECT, subject)
         putExtra(Intent.EXTRA_TEXT, text)
         type = "text/plain"
     }

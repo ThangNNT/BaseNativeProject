@@ -51,9 +51,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/layout_option_1"
         app:layout_constraintTop_toBottomOf="@id/layout_header"
-        android:gravity="center_vertical"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginVertical="@dimen/_8sdp"
+        style="@style/DrawerItemLayout"
+        android:layout_marginTop="@dimen/_8sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -65,27 +64,47 @@
         <TextView
             android:id="@+id/tv_option_1"
             android:text="@string/title_home"
+            style="@style/DrawerItemTextStyle"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/layout_option_2"
+        android:id="@+id/layout_review"
         app:layout_constraintTop_toBottomOf="@id/layout_option_1"
-        android:gravity="center_vertical"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginVertical="@dimen/_8sdp"
+        style="@style/DrawerItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/iv_option_2"
-            android:src="@drawable/ic_notifications_black_24dp"
+            android:id="@+id/iv_review"
+            android:src="@drawable/ic_star_rate_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:ignore="ContentDescription" />
         <TextView
-            android:id="@+id/tv_option_2"
-            android:text="@string/title_notifications"
+            android:id="@+id/tv_review"
+            android:text="@string/review"
+            style="@style/DrawerItemTextStyle"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layout_share_app"
+        style="@style/DrawerItemLayout"
+        app:layout_constraintTop_toBottomOf="@id/layout_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_share_app"
+            android:src="@drawable/ic_share_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/tv_share_app"
+            android:text="@string/share_app"
+            style="@style/DrawerItemTextStyle"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

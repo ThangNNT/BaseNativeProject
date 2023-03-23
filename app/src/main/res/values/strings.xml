@@ -3,6 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="review">Review</string>
+    <string name="share_app">Share This Application</string>
     <string name="navigation_drawer_open">Drawer Open</string>
     <string name="navigation_drawer_close">Drawer Close</string>
+    <string name="share_app_subject">Hey, this app is very awesome!</string>
 </resources>
