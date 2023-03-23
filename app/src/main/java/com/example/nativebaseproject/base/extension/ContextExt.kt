@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -15,6 +16,16 @@ fun Context.copyText(text: String){
     val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java)
     val clip = ClipData.newPlainText("copyText", text)
     clipboard?.setPrimaryClip(clip)
+}
+
+fun Context.shareSimpleText(text: String){
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, text)
+        type = "text/plain"
+    }
+    val shareIntent = Intent.createChooser(sendIntent, null)
+    startActivity(shareIntent)
 }
 
 fun Context.createProgressDialog(): AlertDialog {
