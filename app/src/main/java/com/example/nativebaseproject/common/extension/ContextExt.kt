@@ -1,4 +1,4 @@
-package com.example.nativebaseproject.base.extension
+package com.example.nativebaseproject.common.extension
 
 import android.app.AlertDialog
 import android.content.ClipData
@@ -10,7 +10,6 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import com.example.nativebaseproject.R
-
 
 fun Context.copyText(text: String){
     val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java)

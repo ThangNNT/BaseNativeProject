@@ -1,24 +1,26 @@
 package com.example.nativebaseproject
 
+import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewTreeObserver
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.example.nativebaseproject.base.activity.BaseMVVMActivity
-import com.example.nativebaseproject.base.extension.shareSimpleText
 import com.example.nativebaseproject.common.extension.setSingleClickListener
+import com.example.nativebaseproject.common.extension.shareSimpleText
 import com.example.nativebaseproject.common.inapp_review.launchInAppReview
+import com.example.nativebaseproject.common.util.changeLanguage
+import com.example.nativebaseproject.common.util.getCurrentLanguageModel
 import com.example.nativebaseproject.databinding.ActivityMainBinding
+import com.example.nativebaseproject.ui.language.LanguageActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,13 +29,14 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding>(ActivityMainBinding::
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
     private lateinit var drawableToggle: ActionBarDrawerToggle
-    override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
-        super.onCreate(savedInstanceState)
+
+    private val onLanguageChanged = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+        if (result.resultCode == Activity.RESULT_OK){
+            changeLanguage(getCurrentLanguageModel())
+        }
     }
 
     override fun setup() {
-        setupSplashScreen()
         setSupportActionBar(binding.toolbar)
         setupDrawer()
         setupNavigation()
@@ -52,9 +55,8 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding>(ActivityMainBinding::
     }
 
     private fun setupDrawerListener(){
-        binding.layoutDrawer.layoutOption1.setSingleClickListener {
-            navController.navigate(R.id.action_drawer_to_testFragment)
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        binding.layoutDrawer.layoutLanguage.setSingleClickListener {
+            onLanguageChanged.launch(LanguageActivity.newIntent(this))
         }
         binding.layoutDrawer.layoutReview.setOnClickListener {
             launchInAppReview(this, {}, {})
@@ -96,26 +98,6 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding>(ActivityMainBinding::
                 }
             }
         }
-    }
-
-    private fun setupSplashScreen(){
-        // Set up an OnPreDrawListener to the root view.
-        val content: View = findViewById(android.R.id.content)
-        content.viewTreeObserver.addOnPreDrawListener(
-            object : ViewTreeObserver.OnPreDrawListener {
-                override fun onPreDraw(): Boolean {
-                    // Check if the initial data is ready.
-                    return if (viewModel.shouldHideSplash) {
-                        // The content is ready; start drawing.
-                        content.viewTreeObserver.removeOnPreDrawListener(this)
-                        true
-                    } else {
-                        // The content is not ready; suspend.
-                        false
-                    }
-                }
-            }
-        )
     }
 
     override fun onNavigateUp(): Boolean {

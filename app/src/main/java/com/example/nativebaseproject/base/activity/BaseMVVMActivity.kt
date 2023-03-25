@@ -2,7 +2,6 @@ package com.example.nativebaseproject.base.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.databinding.ViewDataBinding
 import androidx.viewbinding.ViewBinding
 import com.example.nativebaseproject.base.viewmodel.BaseViewModel
 

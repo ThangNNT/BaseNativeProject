@@ -1,5 +1,6 @@
 package com.example.nativebaseproject.base.activity
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -7,7 +8,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.example.nativebaseproject.base.extension.createProgressDialog
+import com.example.nativebaseproject.common.extension.createProgressDialog
 import com.example.nativebaseproject.common.extension.hideKeyboard
 
 abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (LayoutInflater) -> VB): AppCompatActivity() {
@@ -55,5 +56,4 @@ abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (Layout
             return ret
         } else return super.dispatchTouchEvent(event)
     }
-
 }
