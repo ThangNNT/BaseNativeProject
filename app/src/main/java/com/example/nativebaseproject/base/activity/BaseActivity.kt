@@ -1,5 +1,6 @@
 package com.example.nativebaseproject.base.activity
 
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.viewbinding.ViewBinding
 import com.example.nativebaseproject.common.extension.createProgressDialog
 import com.example.nativebaseproject.common.extension.hideKeyboard
 
+
 abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (LayoutInflater) -> VB): AppCompatActivity() {
     var shouldHideKeyboardWhenTouchOutside = true
     private lateinit var mBinding: VB
@@ -18,8 +20,11 @@ abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (Layout
         get() = mBinding
 
     private val progressDialog by lazy { createProgressDialog() }
+
+    private lateinit var prevConfig: Configuration
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        prevConfig = Configuration(resources.configuration)
         mBinding = bindingFactory.invoke(layoutInflater)
         setContentView(binding.root)
         setup()
@@ -33,6 +38,24 @@ abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (Layout
 
     fun hideProgressDialog() {
         progressDialog.dismiss()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (isNightConfigChanged(newConfig)) { // night mode has changed
+            recreate()
+        }
+        prevConfig = Configuration(resources.configuration)
+    }
+
+    protected open fun isNightConfigChanged(newConfig: Configuration): Boolean {
+        return newConfig.diff(prevConfig) and ActivityInfo.CONFIG_UI_MODE != 0 && isOnDarkMode(
+            newConfig
+        ) != isOnDarkMode(prevConfig)
+    }
+
+    open fun isOnDarkMode(configuration: Configuration): Boolean {
+        return configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -56,4 +79,6 @@ abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (Layout
             return ret
         } else return super.dispatchTouchEvent(event)
     }
+
+
 }

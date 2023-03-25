@@ -1,7 +1,6 @@
 package com.example.nativebaseproject.ui.home
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.nativebaseproject.base.fragment.BaseFragment
 import com.example.nativebaseproject.common.extension.setSingleClickListener
 import com.example.nativebaseproject.databinding.FragmentHomeBinding
@@ -16,7 +15,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         }
         binding.textHome.setSingleClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionOpenTestDialog())
+           // findNavController().navigate(HomeFragmentDirections.actionOpenTestDialog())
         }
     }
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/windowBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_header"
@@ -10,7 +11,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingBottom="@dimen/_8sdp"
-        android:background="@color/purple_700"
+        android:background="@color/colorSecondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -60,7 +61,8 @@
             android:src="@drawable/ic_language_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            app:tint="@color/textColorPrimary" />
         <TextView
             android:id="@+id/tv_language"
             android:text="@string/language"
@@ -77,6 +79,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_review"
+            app:tint="@color/textColorPrimary"
             android:src="@drawable/ic_star_rate_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,6 +100,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_share_app"
+            app:tint="@color/textColorPrimary"
             android:src="@drawable/ic_share_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

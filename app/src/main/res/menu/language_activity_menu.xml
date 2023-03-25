@@ -5,6 +5,7 @@
         android:id="@+id/btn_confirm_language"
         android:title=""
         app:showAsAction="always"
+        app:iconTint="@color/textColorPrimary"
         android:icon="@drawable/ic_check_24"
         />
 </menu>

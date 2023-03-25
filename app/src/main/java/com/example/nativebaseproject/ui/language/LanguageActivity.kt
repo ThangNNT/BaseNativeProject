@@ -4,12 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.text.color
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nativebaseproject.AppConfig
 import com.example.nativebaseproject.MainActivity
@@ -34,7 +37,7 @@ class LanguageActivity : BaseMVVMActivity<ActivityLanguageBinding>(ActivityLangu
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         if (isOpenApp) installSplashScreen()
-        else setTheme(R.style.Theme_LanguageActivity)
+        else setTheme(R.style.Theme_LanguageActivity_DayNight)
         super.onCreate(savedInstanceState)
     }
 
@@ -43,7 +46,10 @@ class LanguageActivity : BaseMVVMActivity<ActivityLanguageBinding>(ActivityLangu
     }
 
     override fun setup() {
-        supportActionBar?.title = getString(R.string.language)
+        val spannableTitle = SpannableStringBuilder().color(ContextCompat.getColor(this, R.color.textColorPrimary)){
+            append(getString(R.string.language))
+        }
+        supportActionBar?.title = spannableTitle
         if (isOpenApp) setupSplashScreen()
 
         if (viewModel.isFirstCreate){
