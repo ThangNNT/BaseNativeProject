@@ -2,10 +2,14 @@ package com.example.nativebaseproject
 
 import android.app.Activity
 import android.view.MenuItem
+import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
+import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
@@ -32,7 +36,12 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding>(ActivityMainBinding::
         }
     }
 
+    private lateinit var onBackPressCallback: OnBackPressedCallback
+
     override fun setup() {
+        onBackPressCallback = onBackPressedDispatcher.addCallback(this, false) {
+            closeDrawer()
+        }
         setSupportActionBar(binding.toolbar)
         setupDrawer()
         setupNavigation()
@@ -43,10 +52,18 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding>(ActivityMainBinding::
         }
     }
     private fun setupDrawer(){
-        setupDrawerListener()
-    }
+        binding.drawerLayout.addDrawerListener(object: DrawerListener{
+            override fun onDrawerOpened(drawerView: View) {
+                onBackPressCallback.isEnabled = true
+            }
 
-    private fun setupDrawerListener(){
+            override fun onDrawerClosed(drawerView: View) {
+               onBackPressCallback.isEnabled = false
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {}
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float){}
+        })
         binding.layoutDrawer.apply {
             layoutTheme.setSingleClickListener {
                 closeDrawer()
@@ -111,13 +128,5 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding>(ActivityMainBinding::
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
-            binding.drawerLayout.closeDrawers()
-        }
-        else super.onBackPressed()
     }
 }
