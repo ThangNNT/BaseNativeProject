@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id "androidx.navigation.safeargs.kotlin"
+
 }
 
 android {
@@ -29,7 +31,6 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
         manifestPlaceholders = [hostName:"www.example.nativebaseproject"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -125,9 +126,26 @@ dependencies {
 
     //OkHttp
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
-
     // define any required OkHttp artifacts without version
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+
+    //datastore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    //generate dimension
+    implementation "com.intuit.sdp:sdp-android:1.0.6"
+
+    //splash screen
+    implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
+
+    //in-app review
+    implementation 'com.google.android.play:review-ktx:2.0.1'
+
+    //circle image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //event bus
+    implementation("org.greenrobot:eventbus:3.3.1")
 
 }

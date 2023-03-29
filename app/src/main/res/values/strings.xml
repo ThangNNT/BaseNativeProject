@@ -1,6 +1,21 @@
 <resources>
-    <string name="app_name">NativeBaseProject</string>
+    <string name="app_name" translatable="false">NativeBaseProject</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="review">Review</string>
+    <string name="share_app">Share This Application</string>
+    <string name="navigation_drawer_open" translatable="false">Drawer Open</string>
+    <string name="navigation_drawer_close" translatable="false">Drawer Close</string>
+    <string name="share_app_subject">Hey, this app is very awesome!</string>
+    <string name="language">Language</string>
+    <string name="dark_mode">Dark mode</string>
+    <!-- language -->
+    <string name="vietnam" translatable="false">Việt Nam</string>
+    <string name="english" translatable="false">English</string>
+    <string name="france" translatable="false">France</string>
+    <string name="using_system_settings">Using system settings</string>
+    <string name="turn_on">Turn on</string>
+    <string name="turn_off">Turn off</string>
+    <string name="privacy_policies">Privacy policies</string>
 </resources>

@@ -24,7 +24,7 @@ object ActionPopup {
         }))
         ActionPopup.show(requireContext(), it, Any(), actions)
      */
-    inline fun <reified T: Any>
+     fun <T: Any>
             show(context: Context, anchorView: View, model: T, actions: List<ActionItem<T>>){
         val inflater =
             context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

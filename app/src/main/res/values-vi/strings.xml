@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_home">Trang chủ</string>
+    <string name="title_dashboard">Điều khiển</string>
+    <string name="title_notifications">Thông báo</string>
+    <string name="review">Đánh giá</string>
+    <string name="share_app">Chia sẻ ứng dụng</string>
+    <string name="share_app_subject">Có ứng dụng hay lắm này!</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="dark_mode">Chế độ tối</string>
+    <string name="using_system_settings">Sử dụng cài đặt hệ thống</string>
+    <string name="turn_on">Bật</string>
+    <string name="turn_off">Tắt</string>
+    <string name="privacy_policies">Chính sách bảo mật</string>
+</resources>

@@ -4,12 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
-
+    <action android:id="@+id/action_open_testFragment"
+        app:destination="@id/fragment_test"/>
+    <action android:id="@+id/action_open_theme"
+        app:destination="@+id/fragment_theme"/>
+    <action android:id="@+id/action_open_policy"
+        app:destination="@id/fragment_privacy_policy"/>
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.nativebaseproject.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action android:id="@+id/action_open_testFragment"
+            app:destination="@id/fragment_test"/>
+        <action android:id="@+id/action_open_test_dialog"
+            app:destination="@id/dialog_test"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +32,28 @@
         android:name="com.example.nativebaseproject.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/fragment_test"
+        android:name="com.example.nativebaseproject.ui.test.TestFragment"
+        android:label="Test Fragment"
+        tools:layout="@layout/fragment_test"/>
+
+    <fragment
+        android:id="@+id/fragment_theme"
+        android:name="com.example.nativebaseproject.ui.theme.DarkModeFragment"
+        android:label="Theme Fragment"
+        tools:layout="@layout/fragment_darkmode"/>
+
+    <fragment
+        android:id="@+id/fragment_privacy_policy"
+        android:name="com.example.nativebaseproject.ui.privacy_policy.PrivacyPolicyFragment"
+        android:label="Privacy Policy"
+        tools:layout="@layout/fragment_privacy_policy"/>
+
+    <dialog
+        android:id="@+id/dialog_test"
+        android:name="com.example.nativebaseproject.ui.test.TestDialog"
+        android:label="Test Dialog"
+        tools:layout="@layout/dialog_test"/>
 </navigation>

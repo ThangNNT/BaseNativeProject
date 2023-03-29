@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">@drawable/bg_round_white</item>
-        <item name="android:background">@drawable/bg_round_white</item>
+        <item name="android:windowBackground">@drawable/bg_round_white_radius_10</item>
+        <item name="android:background">@drawable/bg_round_white_radius_10</item>
     </style>
+
+    <!-- Text Style For App DrawerLayout Item -->
+    <style name="DrawerItemTextStyle">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="DrawerItemLayout">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:paddingTop">@dimen/_8sdp</item>
+        <item name="android:paddingBottom">@dimen/_8sdp</item>
+        <item name="android:paddingStart">@dimen/_16sdp</item>
+        <item name="android:paddingEnd">@dimen/_16sdp</item>
+    </style>
+
+    <style name="DarkModeTextStyle">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
 </resources>
