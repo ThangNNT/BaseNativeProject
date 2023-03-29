@@ -8,10 +8,13 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.viewbinding.ViewBinding
 import com.example.nativebaseproject.common.extension.createProgressDialog
 import com.example.nativebaseproject.common.extension.hideKeyboard
-
+import com.example.nativebaseproject.common.extension.isOnDarkMode
+import com.example.nativebaseproject.data.local.AppDataStore
+import com.example.nativebaseproject.ui.theme.DarkModeSetting
 
 abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (LayoutInflater) -> VB): AppCompatActivity() {
     var shouldHideKeyboardWhenTouchOutside = true
@@ -23,12 +26,16 @@ abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (Layout
 
     private lateinit var prevConfig: Configuration
     override fun onCreate(savedInstanceState: Bundle?) {
+        setupAppTheme()
+        onPreCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
         prevConfig = Configuration(resources.configuration)
         mBinding = bindingFactory.invoke(layoutInflater)
         setContentView(binding.root)
         setup()
     }
+
+    open fun onPreCreate(savedInstanceState: Bundle?){}
 
     abstract fun setup()
 
@@ -40,6 +47,20 @@ abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (Layout
         progressDialog.dismiss()
     }
 
+     private fun setupAppTheme(){
+        when(AppDataStore.darkModeSetting){
+            DarkModeSetting.TurnOff -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            DarkModeSetting.TurnOn -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+            DarkModeSetting.SystemSetting -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
+        }
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         if (isNightConfigChanged(newConfig)) { // night mode has changed
@@ -48,14 +69,10 @@ abstract class BaseActivity<VB: ViewBinding>(private val bindingFactory: (Layout
         prevConfig = Configuration(resources.configuration)
     }
 
-    protected open fun isNightConfigChanged(newConfig: Configuration): Boolean {
+    private fun isNightConfigChanged(newConfig: Configuration): Boolean {
         return newConfig.diff(prevConfig) and ActivityInfo.CONFIG_UI_MODE != 0 && isOnDarkMode(
             newConfig
         ) != isOnDarkMode(prevConfig)
-    }
-
-    open fun isOnDarkMode(configuration: Configuration): Boolean {
-        return configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {

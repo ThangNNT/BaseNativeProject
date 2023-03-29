@@ -31,14 +31,14 @@ import java.util.Locale
  */
 class LanguageActivity : BaseMVVMActivity<ActivityLanguageBinding>(ActivityLanguageBinding::inflate) {
     override val viewModel: LanguageViewModel by viewModels()
-
     private val isOpenApp by lazy {
         intent.getBooleanExtra(IS_OPEN_APP, true)
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
+
+    override fun onPreCreate(savedInstanceState: Bundle?) {
+        //only show splash screen when open app
         if (isOpenApp) installSplashScreen()
         else setTheme(R.style.Theme_LanguageActivity_DayNight)
-        super.onCreate(savedInstanceState)
     }
 
     override fun setupObserver() {
@@ -50,6 +50,7 @@ class LanguageActivity : BaseMVVMActivity<ActivityLanguageBinding>(ActivityLangu
             append(getString(R.string.language))
         }
         supportActionBar?.title = spannableTitle
+        //only show splash screen when open app
         if (isOpenApp) setupSplashScreen()
 
         if (viewModel.isFirstCreate){
@@ -89,6 +90,7 @@ class LanguageActivity : BaseMVVMActivity<ActivityLanguageBinding>(ActivityLangu
     }
 
     private fun onSplashScreenFinish(){
+        // if first app open, pick language else go to main screen instantly
         if (!AppDataStore.isFirstAppOpen){
             changeLanguage(getCurrentLanguageModel())
             goToMain()
@@ -109,8 +111,10 @@ class LanguageActivity : BaseMVVMActivity<ActivityLanguageBinding>(ActivityLangu
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.btn_confirm_language){
+            //save state to local
             AppDataStore.isFirstAppOpen = false
             AppDataStore.currentLanguage = viewModel.currentLanguageModel.languageCode
+            //if first time open, change language instantly else back to main
             if (isOpenApp) {
                 if (viewModel.currentLanguageModel.languageCode != Locale.getDefault().language){
                     changeLanguage(viewModel.currentLanguageModel)

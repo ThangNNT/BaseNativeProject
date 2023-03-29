@@ -4,15 +4,13 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.nativebaseproject.AppConfig
 import com.example.nativebaseproject.MyApplication
 import com.example.nativebaseproject.common.util.getDefaultLanguage
-import com.example.nativebaseproject.data.local.AppDataStore.getValueFlow
+import com.example.nativebaseproject.ui.theme.DarkModeSetting
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import java.io.IOException
 
 /**
@@ -25,6 +23,7 @@ object AppDataStore {
 
     private val FIRST_APP_OPEN = booleanPreferencesKey("FIRST_APP_OPEN")
     private val CURRENT_LANGUAGE = stringPreferencesKey("CURRENT_LANGUAGE")
+    private val DARK_MODE = intPreferencesKey("DARK_MODE")
 
     var isFirstAppOpen: Boolean
         get() = get(FIRST_APP_OPEN, true)
@@ -41,6 +40,19 @@ object AppDataStore {
             put(CURRENT_LANGUAGE, value)
         }
 
+    var darkModeSetting: DarkModeSetting
+    get() {
+        val darkMode = get(DARK_MODE, DarkModeSetting.SystemSetting.value)
+        DarkModeSetting.values().forEach {
+            if (it.value == darkMode)
+                return it
+        }
+        return DarkModeSetting.SystemSetting
+    }
+    set(value) {
+        put(DARK_MODE, value.value)
+    }
+
     private inline fun <reified T>get(key: Preferences.Key<T>, default: T): T = runBlocking(Dispatchers.Default) {
         return@runBlocking dataStore.getValueFlow(key, default).first()
     }
@@ -56,10 +68,10 @@ object AppDataStore {
         return@runBlocking Gson().fromJson(jsonString, T::class.java)
     }
 
-    private inline fun <reified T>putObject(key: Preferences.Key<T>, value: T) = runBlocking(Dispatchers.Default){
+    private inline fun <reified T>putObject(key: Preferences.Key<String>, value: T) = runBlocking(Dispatchers.Default){
         val jsonString = Gson().toJson(value)
         dataStore.edit {
-            it[key] = value
+            it[key] = jsonString
         }
     }
 

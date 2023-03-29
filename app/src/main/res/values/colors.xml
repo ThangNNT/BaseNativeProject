@@ -8,7 +8,7 @@
     <color name="colorSecondary">@color/light_green</color>
     <color name="colorSecondaryVariant">@color/light_green</color>
     <color name="colorOnSecondary">@color/black</color>
-    <color name="textColorSecondary">@color/black</color>
+    <color name="textColorSecondary">@color/cod_gray</color>
     <color name="windowBackground">@color/white</color>
     <color name="controlActiveColor">@color/orange</color>
 </resources>

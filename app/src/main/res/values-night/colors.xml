@@ -8,7 +8,7 @@
     <color name="colorSecondary">@color/teal</color>
     <color name="colorSecondaryVariant">@color/dark_cyan</color>
     <color name="colorOnSecondary">@color/white</color>
-    <color name="textColorSecondary">@color/white</color>
+    <color name="textColorSecondary">@color/light_grey</color>
     <color name="windowBackground">@color/black_grey</color>
     <color name="controlActiveColor">@color/orange</color>
 </resources>

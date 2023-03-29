@@ -8,7 +8,7 @@
     <!-- Text Style For App DrawerLayout Item -->
     <style name="DrawerItemTextStyle">
         <item name="fontFamily">sans-serif-medium</item>
-        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
         <item name="android:textSize">14sp</item>
     </style>
     <style name="DrawerItemLayout">

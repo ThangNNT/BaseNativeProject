@@ -1,5 +1,7 @@
 package com.example.nativebaseproject
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.nativebaseproject.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,11 +14,18 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MainViewModel @Inject constructor(): BaseViewModel() {
+    private val _toolbarTitle: MutableLiveData<String> = MutableLiveData()
+    val toolbarTitle: LiveData<String> = _toolbarTitle
+
     var shouldHideSplash = false
     init {
         viewModelScope.launch {
             delay(200)
             shouldHideSplash = true
         }
+    }
+
+    fun setToolbarTitle(title: String){
+        _toolbarTitle.value = title
     }
 }

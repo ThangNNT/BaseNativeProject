@@ -6,6 +6,8 @@
     app:startDestination="@+id/navigation_home">
     <action android:id="@+id/action_drawer_to_testFragment"
         app:destination="@id/fragment_test"/>
+    <action android:id="@+id/action_drawer_to_theme"
+        app:destination="@+id/fragment_theme"/>
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.nativebaseproject.ui.home.HomeFragment"
@@ -34,6 +36,12 @@
         android:name="com.example.nativebaseproject.ui.test.TestFragment"
         android:label="Test Fragment"
         tools:layout="@layout/fragment_test"/>
+
+    <fragment
+        android:id="@+id/fragment_theme"
+        android:name="com.example.nativebaseproject.ui.theme.DarkModeFragment"
+        android:label="Theme Fragment"
+        tools:layout="@layout/fragment_darkmode"/>
 
     <dialog
         android:id="@+id/dialog_test"

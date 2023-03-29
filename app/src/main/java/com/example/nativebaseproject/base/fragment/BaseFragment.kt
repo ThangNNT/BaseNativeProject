@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
+import com.example.nativebaseproject.MainViewModel
 import com.example.nativebaseproject.base.activity.BaseActivity
 
 abstract class BaseFragment<VB: ViewBinding>(private val bindingFactory: (LayoutInflater) -> VB): Fragment() {
+    protected val appViewModel: MainViewModel by activityViewModels()
     protected open val shouldHideKeyboardWhenTouchOutside = true
     private var mBinding: VB? = null
 
