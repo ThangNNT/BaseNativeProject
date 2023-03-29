@@ -45,6 +45,9 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding>(ActivityMainBinding::
         setSupportActionBar(binding.toolbar)
         setupDrawer()
         setupNavigation()
+        binding.drawerLayout.post {
+            onBackPressCallback.isEnabled = binding.drawerLayout.isDrawerOpen(GravityCompat.START)
+        }
     }
     override fun setupObserver() {
         viewModel.toolbarTitle.observe(this){
