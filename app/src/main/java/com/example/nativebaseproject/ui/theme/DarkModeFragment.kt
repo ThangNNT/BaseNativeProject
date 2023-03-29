@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DarkModeFragment: BaseFragment<FragmentDarkmodeBinding>(FragmentDarkmodeBinding::inflate) {
     override fun setup() {
-        appViewModel.setToolbarTitle(getString(R.string.darkmode))
+        appViewModel.setToolbarTitle(getString(R.string.dark_mode))
         when(AppDataStore.darkModeSetting){
             DarkModeSetting.TurnOff -> {
                 binding.radioDarkModeOff.isChecked = true

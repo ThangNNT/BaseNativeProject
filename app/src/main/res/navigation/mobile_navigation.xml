@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
-    <action android:id="@+id/action_drawer_to_testFragment"
+    <action android:id="@+id/action_open_testFragment"
         app:destination="@id/fragment_test"/>
-    <action android:id="@+id/action_drawer_to_theme"
+    <action android:id="@+id/action_open_theme"
         app:destination="@+id/fragment_theme"/>
+    <action android:id="@+id/action_open_policy"
+        app:destination="@id/fragment_privacy_policy"/>
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.nativebaseproject.ui.home.HomeFragment"
@@ -42,6 +44,12 @@
         android:name="com.example.nativebaseproject.ui.theme.DarkModeFragment"
         android:label="Theme Fragment"
         tools:layout="@layout/fragment_darkmode"/>
+
+    <fragment
+        android:id="@+id/fragment_privacy_policy"
+        android:name="com.example.nativebaseproject.ui.privacy_policy.PrivacyPolicyFragment"
+        android:label="Privacy Policy"
+        tools:layout="@layout/fragment_privacy_policy"/>
 
     <dialog
         android:id="@+id/dialog_test"

@@ -15,15 +15,18 @@
         <RadioButton
             android:id="@+id/radio_dark_mode_on"
             android:text="@string/turn_on"
+            style="@style/DarkModeTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RadioButton
             android:id="@+id/radio_dark_mode_off"
             android:text="@string/turn_off"
+            style="@style/DarkModeTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RadioButton
             android:id="@+id/radio_use_system_setting"
+            style="@style/DarkModeTextStyle"
             android:text="@string/using_system_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

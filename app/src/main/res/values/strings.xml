@@ -9,7 +9,7 @@
     <string name="navigation_drawer_close" translatable="false">Drawer Close</string>
     <string name="share_app_subject">Hey, this app is very awesome!</string>
     <string name="language">Language</string>
-    <string name="darkmode">Dark mode</string>
+    <string name="dark_mode">Dark mode</string>
     <!-- language -->
     <string name="vietnam" translatable="false">Việt Nam</string>
     <string name="english" translatable="false">English</string>
@@ -17,4 +17,5 @@
     <string name="using_system_settings">Using system settings</string>
     <string name="turn_on">Turn on</string>
     <string name="turn_off">Turn off</string>
+    <string name="privacy_policies">Privacy policies</string>
 </resources>

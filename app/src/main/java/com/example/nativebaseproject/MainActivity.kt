@@ -49,8 +49,8 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding>(ActivityMainBinding::
     private fun setupDrawerListener(){
         binding.layoutDrawer.apply {
             layoutTheme.setSingleClickListener {
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-                navController.navigate(R.id.action_drawer_to_theme)
+                closeDrawer()
+                navController.navigate(R.id.action_open_theme)
             }
             layoutLanguage.setSingleClickListener {
                 onLanguageChanged.launch(LanguageActivity.newIntent(this@MainActivity))
@@ -62,7 +62,15 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding>(ActivityMainBinding::
                 val appShareContent =  "${getString(R.string.share_app_subject)} ${AppConfig.APP_STORE_LINK}"
                 shareSimpleText(appShareContent, getString(R.string.app_name))
             }
+            layoutPolicy.setSingleClickListener {
+                closeDrawer()
+                navController.navigate(R.id.action_open_policy)
+            }
         }
+    }
+
+    private fun closeDrawer(){
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
     }
 
     private fun setupNavigation(){

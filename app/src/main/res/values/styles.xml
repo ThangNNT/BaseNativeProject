@@ -9,7 +9,7 @@
     <style name="DrawerItemTextStyle">
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/textColorSecondary</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
     <style name="DrawerItemLayout">
         <item name="android:gravity">center_vertical</item>
@@ -20,6 +20,12 @@
         <item name="android:paddingBottom">@dimen/_8sdp</item>
         <item name="android:paddingStart">@dimen/_16sdp</item>
         <item name="android:paddingEnd">@dimen/_16sdp</item>
+    </style>
+
+    <style name="DarkModeTextStyle">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 
